@@ -1,18 +1,27 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="header">
-    <text class="header-label">label{{motto}}</text>
+  <block class="fund-wrapper" wx:for="{{fundList}}"  wx:for-item="fund">
+    <view class="fund-item" wx:key="fund_id">
+        {{fund.fund_id}}
+        <!-- <text class="fund-item-id">{{fund.fund_id}}{{fund.fund_name}}</text> -->
+        <text class="fund-item-name">{{fund.fund_name}}</text>
+        <!-- <text class="fund-item-name">{{fund.fund_name}}</text> -->
+    </view>
+  </block>
+  <!-- <view class="header"> -->
+    <!-- <text class="header-label">label{{motto}}</text>
     <text class="header-divider">|</text>
     <text class="header-label">label{{motto}}</text>
     <text class="header-divider">|</text>
     <text class="header-label">label{{motto}}</text>
-    <text class="header-divider">|</text>
+    <text class="header-divider">|</text> -->
+    
     <!-- <block wx:else>
       <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
     </block> -->
-  </view>
-  <view class="usermotto">
+  <!-- </view> -->
+  <!-- <view class="usermotto">
     <text class="user-motto">{{motto}}</text>
-  </view>
+  </view> -->
 </view>

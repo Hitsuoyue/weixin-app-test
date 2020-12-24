@@ -32,3 +32,23 @@
 .usermotto {
   margin-top: 200px;
 }
+.fund-item {
+  height: 48px;
+  line-height: 48px;
+  display: flex;
+  width: 100%;
+  text-align: left;
+  padding-left: 80rpx;
+  border-bottom: 1px solid #ccc;
+}
+.fund-item-id {
+  width: 100rpx;
+}
+.fund-item-name {
+  width: 400rpx;
+  margin-left: 80rpx;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+}
