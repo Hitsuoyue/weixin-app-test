@@ -1,0 +1,16 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header-search">
+    <view class="header-search-icon">
+      <icon class="icon-small" type="search" size="12"></icon>
+    </view>
+    <input bindinput="onInputChange" bindconfirm="onSearch" class="header-search-input" auto-focus placeholder="将会获取焦点"/>
+
+  </view>
+  <block class="fund-wrapper" wx:for="{{fundList}}"  wx:for-item="fund">
+    <view class="fund-item" wx:key="fund_id" bindtap="toAddFund">
+        {{fund.fund_id}}
+        <text class="fund-item-name">{{fund.fund_name}}</text>
+    </view>
+  </block>
+</view>

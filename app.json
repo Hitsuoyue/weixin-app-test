@@ -1,8 +1,10 @@
 {
   "pages":[
+    "pages/fundList/index",
     "pages/home/home",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/addFund/index"
   ],
   "window":{
     "backgroundTextStyle":"light",
