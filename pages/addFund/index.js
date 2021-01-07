@@ -41,94 +41,49 @@ Page({
     userInfo: {},
     hasUserInfo: false,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    fundList: []
+    fundList: [],
+    form: {
+      netWorth: 0,
+      date: '2016-09-01',
+      rate: 0.15
+    }
   },
-  //事件处理函数
-  onInputChange: function(e) {
-    const { detail: { value } } = e;
-    console.log('change', e, value)
+  formSubmit(e) {
+    console.log('form发生了submit事件，携带数据为：', e.detail.value)
   },
-  onSearch: function(e) {
-    const { detail: { value } } = e;
-    console.log('change', e, value)
-    wx.request({
-      url: 'https://mall.api.fofeasy.cn/apimall/fund_screen', //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json', // 默认值
-        'Authorization': '795722262f8b400a9a3dde0b0d007ce1'
-      },
-      method: 'POST',
-      success (res) {
-        console.log('res.data && res.data.data', res.data && res.data.data)
-        console.log('fundList', wx.getStorageSync('fundList'))
-        const data = res.data && res.data.data.slice(0, 4);
-        transFundList(data);
-      }
+
+  formReset(e) {
+    console.log('form发生了reset事件，携带数据为：', e.detail.value)
+    this.setData({
+      chosen: ''
+    })
+  },
+  bindAmountChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.data.form.amount = e.detail.value;
+    //todo
+    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
+      this.data.form.share = this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth;
+    }
+    this.setData({
+      form: this.data.form
+    })
+  },
+  bindDateChange: function(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.data.form.date = e.detail.value;
+    //todo
+    this.data.form.netWorth = 12;
+    this.data.form.share = 12;
+    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
+      this.data.form.share = this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth;
+    }
+    this.setData({
+      form: this.data.form
     })
   },
   onLoad: function () {
-    if(!wx.getStorageSync('fundList')) {
-      wx.request({
-        url: 'https://mall.api.fofeasy.cn/apimall/fund_screen', //仅为示例，并非真实的接口地址
-        data: {
-        },
-        header: {
-          'content-type': 'application/json', // 默认值
-          'Authorization': '795722262f8b400a9a3dde0b0d007ce1'
-        },
-        method: 'POST',
-        success (res) {
-          console.log('res.data && res.data.data', res.data && res.data.data)
-          console.log('fundList', wx.getStorageSync('fundList'))
-          const data = res.data && res.data.data;
-          transFundList(data);
-        }
-      })
-    } else {
-      this.setData({
-        fundList: wx.getStorageSync('fundList')
-      })
-    }
-    console.log('fundList---', wx.getStorageSync('fundList'))
-
     
-    
-
-    if (app.globalData.userInfo) {
-      this.setData({
-        userInfo: app.globalData.userInfo,
-        hasUserInfo: true
-      })
-    } else if (this.data.canIUse){
-      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-      // 所以此处加入 callback 以防止这种情况
-      app.userInfoReadyCallback = res => {
-        this.setData({
-          userInfo: res.userInfo,
-          hasUserInfo: true
-        })
-      }
-    } else {
-      // 在没有 open-type=getUserInfo 版本的兼容处理
-      wx.getUserInfo({
-        success: res => {
-          app.globalData.userInfo = res.userInfo
-          this.setData({
-            userInfo: res.userInfo,
-            hasUserInfo: true
-          })
-        }
-      })
-    }
   },
-  getUserInfo: function(e) {
-    console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true
-    })
-  }
+  
 })

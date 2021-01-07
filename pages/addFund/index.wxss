@@ -1,74 +1,47 @@
 /**index.wxss**/
-.header-search {
-  border-radius: 40rpx;
+.header-title {
+  padding-left: 100rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+  margin: 20rpx 0;
+}
+.form-item {
   display: flex;
-  margin: 0 18rpx;
-  height: 60rpx;
-  line-height: 60rpx;
-  padding: 0 20rpx;
-  background: #eff0f4;
-  border: none;
-  font-size: 12px;  
+  font-size: 12px;
+  height: 80rpx;
+  line-height: 80rpx;
+  border-bottom: 1px solid #3f44521f;
+  background: #fff;
 }
-.header-search-icon {
-  width: 18px;
+.form-label {
+  width: 250rpx;
+  text-align: right;
 }
-.header-search-input {
-  margin-left: 30rpx;
+.form-label-icon {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+  margin-right: 4px;  
+}
+.form-option {
   flex: 1;
-  height: 60rpx;
-  line-height: 60px;
+  vertical-align: bottom;
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 0 24rpx;  
+  
 }
-.header {
-  height: 300rpx;
-  background-color: beige;
+.btn-area {
+  text-align: center;
+  height: 48rpx;
+  margin-top: 40rpx;
+  padding: 0 100rpx;
 }
-.header-label {
-  font-size: small;
-  color: #ccc;
-}
-.header-divider {
-  font-size: small;
-  margin: 0 10px;
-  color: aquamarine;
-}
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
-}
-.fund-item {
-  height: 48px;
-  line-height: 48px;
-  display: flex;
+.submit-btn {
   width: 100%;
-  text-align: left;
-  padding-left: 80rpx;
-  border-bottom: 1px solid #ccc;
-}
-.fund-item-id {
-  width: 100rpx;
-}
-.fund-item-name {
-  width: 400rpx;
-  margin-left: 80rpx;
-  overflow: hidden;
-    text-overflow: ellipsis;
-    word-break: break-all;
-    white-space: nowrap;
+  border: none;
+  height: 48rpx;
+  line-height: 48rpx;
+  font-size: 12px;
 }
