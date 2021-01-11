@@ -1,0 +1,56 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header-title">
+    <view class="header-add-icon" bindtap="bindToAdd">
+      +
+    </view>
+    <view class="header-level-1">
+      <view class="header-level-1-value">{{totalYestodayIncome}}</view>  
+      <view class="header-label">昨日收益</view>
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">总市值</text>
+      <text class="header-level-2-value">{{totalMarketValue}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label ">总本金</text>
+      <text class="header-level-2-value">{{totalCost}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label ">总盈亏</text>
+      <text class="header-level-2-value">{{totalAllIncome}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label ">当前收益</text>
+      <text class="header-level-2-value">{{totalCurrentIncome}}</text>  
+    </view>
+  </view>
+  <view class="fund-list-wrapper">
+    <view wx:for="{{list}}"  wx:for-item="fund">
+      <view class="fund-item" wx:key="index" bindtap="bindToMyFundList" data-fund_id="{{fund.fundId}}" data-fund_name="{{fund.fundName}}">
+        <view class="fund-item-top">
+          <view class="fund-item-top-left">
+            <view class="fund-item-text-name">{{fund.fundName}}</view>
+          </view>
+          <view class="fund-item-top-right">
+            <view class="fund-item-netWorth">
+              <view wx:if="{{fund.yestodayIncome < 0}}" class="fund-item-text-red fund-item-text-netWorth">{{fund.yestodayIncome}}</view>
+              <view wx:else class="fund-item-text-green fund-item-text-netWorth">{{fund.yestodayIncome}}</view>
+              <view class="fund-item-label">昨日收益</view>
+            </view>
+            <view class="fund-item-share">
+              <view wx:if="{{fund.returnRate < 0}}" class="fund-item-text-red fund-item-text-share">{{fund.returnRate}}</view>
+              <view wx:else class="fund-item-text-green fund-item-text-share">{{fund.returnRate}}</view>
+              <view class="fund-item-label">收益率</view>
+            </view>
+          </view>
+        </view>
+        <view class="fund-item-bottom">
+          <view class="fund-item-label">持仓份额：{{fund.share}}</view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+  
+</view>

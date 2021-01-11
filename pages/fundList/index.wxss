@@ -1,4 +1,7 @@
 /**index.wxss**/
+.container {
+  height: 100vh;
+}
 .header-search {
   border-radius: 40rpx;
   display: flex;
@@ -8,7 +11,7 @@
   padding: 0 20rpx;
   background: #eff0f4;
   border: none;
-  font-size: 12px;  
+  font-size: 24rpx;  
 }
 .header-search-icon {
   width: 18px;
@@ -16,49 +19,20 @@
 .header-search-input {
   margin-left: 30rpx;
   flex: 1;
-  height: 60rpx;
-  line-height: 60px;
 }
-.header {
-  height: 300rpx;
-  background-color: beige;
-}
-.header-label {
-  font-size: small;
-  color: #ccc;
-}
-.header-divider {
-  font-size: small;
-  margin: 0 10px;
-  color: aquamarine;
-}
-.userinfo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 200px;
+.fund-wrapper {
+  margin-top: 20rpx;
+  height: calc(100% - 60rpx);
+  overflow: auto;
+  font-size: 36rpx;
+  color: #333;
 }
 .fund-item {
-  height: 48px;
-  line-height: 48px;
+  height: 80rpx;
+  line-height: 80rpx;
   display: flex;
-  width: 100%;
   text-align: left;
-  padding-left: 80rpx;
+  padding-left: 40rpx;
   border-bottom: 1px solid #ccc;
 }
 .fund-item-id {

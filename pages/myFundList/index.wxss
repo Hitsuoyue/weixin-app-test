@@ -1,0 +1,80 @@
+/**index.wxss**/
+.header-title {
+  height: 80rpx;
+  line-height: 80rpx;
+  color: #fff;
+  border-bottom: 1px solid #ccc;
+}
+.header-operate-container {
+  position: absolute;
+  right: 70rpx;
+  top: 50rpx;
+  color: #fff;
+  font-size: 24rpx;
+}
+.header-info {
+  background: #d28660;
+  height: 420rpx;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+  margin: 20rpx 0;
+  padding: 40rpx 70rpx;
+}
+.header-level-1 {
+  margin-bottom: 32rpx;
+}
+.header-level-1-value {
+  color: #fff;
+  font-size: 60rpx;
+}
+.header-level-2 {
+  display: inline-block;
+  width: 50%;
+}
+.header-level-2-value {
+  color: #fff;
+  font-size: 24rpx;
+}
+.header-label {
+  font-size: 24rpx;
+  color: #ccc;
+  margin-right: 10rpx;
+}
+.investment-item {
+  height: 180rpx;
+  border-bottom: 1px solid #f7f3f3;
+  padding: 0 40rpx;
+  color: #888888;  
+}
+.investment-item-text-red {
+  font-size: 40rpx;
+  color: #EA685E;
+}
+.investment-item-text-green {
+  font-size: 40rpx;
+  color: #95C560;
+}
+.investment-item-label {
+  font-size: 24rpx;
+  color: #888888;
+}
+.investment-item-top {
+  height: 110rpx;
+  padding: 20rpx 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.investment-item-top-left {
+  flex: 1;
+}
+.investment-item-top-right {
+  width: 300rpx;
+  display: flex;
+  text-align: right;
+}
+.investment-item-share {
+  margin-left: 40rpx;
+}
+.investment-item-bottom {
+  height: 70rpx;
+  line-height: 70rpx;
+}

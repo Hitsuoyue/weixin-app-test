@@ -1,0 +1,96 @@
+<!--index.wxml-->
+<view class="container">
+  <view class="header-operate-container">
+    <view bindtap="bindToAdd">+ 添加申购</view>
+    <view bindtap="bindToRemove">+ 添加赎回</view>
+  </view>
+   
+  <view class="header-info">
+    <view class="header-title">
+      <text>{{fundId}} {{fundName}}</text>
+      <!-- <text>{{fundName}}</text> -->
+    </view>
+    <view class="header-level-1">
+      <view class="header-level-1-value">{{yestodayIncome}}</view>  
+      <view class="header-label">昨日收益</view>
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">单位净值</text>
+      <text class="header-level-2-value">{{unitNetWorth}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">持仓份额</text>
+      <text class="header-level-2-value">{{currentShare}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">投资成本</text>
+      <text class="header-level-2-value">{{cost}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">总市值</text>
+      <text class="header-level-2-value">{{marketValue}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">当前收益</text>
+      <text class="header-level-2-value">{{currentIncome}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">累计收益</text>
+      <text class="header-level-2-value">{{allIncome}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">收益率</text>
+      <text class="header-level-2-value">{{returnRate}}</text>  
+    </view>
+  </view>
+
+  <view class="investment-list">
+<view class="investment-item" wx:for="{{myFundList}}"  wx:for-item="investement">
+  <view wx:if="{{investement.type === 'add'}}">
+    <view class="investment-item-top">
+      <view class="investment-item-top-left">
+        <view class="investment-item-text-red">{{investement.amount}}</view>
+        <view class="investment-item-label">买入金额</view>
+      </view>
+      <view class="investment-item-top-right">
+        <view class="investment-item-netWorth">
+          <view class="investment-item-text-red investment-item-text-netWorth">{{investement.netWorth}}</view>
+          <view class="investment-item-label">买入净值</view>
+        </view>
+        <view class="investment-item-share">
+          <view class="investment-item-text-red investment-item-text-share">{{investement.share}}</view>
+          <view class="investment-item-label">买入份额</view>
+        </view>
+      </view>
+    </view>
+    <view class="investment-item-bottom">
+      <view class="investment-item-label">{{investement.date}}</view>
+    </view>
+  </view> 
+  <view wx:else>
+    <view class="investment-item-top">
+      <view class="investment-item-top-left">
+        <view class="investment-item-text-green">{{investement.amount}}</view>
+        <view class="investment-item-label">卖出金额</view>
+      </view>
+      <view class="investment-item-top-right">
+        <view class="investment-item-netWorth">
+          <view class="investment-item-text-red investment-item-text-netWorth">{{investement.netWorth}}</view>
+          <view class="investment-item-label">卖出净值</view>
+        </view>
+        <view class="investment-item-share">
+          <view class="investment-item-text-red investment-item-text-share">{{investement.share}}</view>
+          <view class="investment-item-label">卖出份额</view>
+        </view>
+      </view>
+    </view>
+    <view class="investment-item-bottom">
+      <view class="investment-item-label">{{investement.date}}</view>
+    </view>
+  </view>   
+
+    
+  </view>
+  </view>
+  
+</view>

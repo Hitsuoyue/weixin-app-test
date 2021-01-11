@@ -1,0 +1,81 @@
+/**index.wxss**/
+.container {
+  height: 100vh;
+}
+.header-title {
+  background: #d28660;
+  height: 260rpx;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.05);
+  margin: 20rpx 0;
+  padding: 40rpx 70rpx;
+}
+.header-add-icon {
+  position: absolute;
+  right: 70rpx;
+  top: 50rpx;
+  color: #ccc;
+  font-size: 44rpx;
+}
+.header-level-1 {
+  margin-bottom: 32rpx;
+}
+.header-level-1-value {
+  color: #fff;
+  font-size: 60rpx;
+}
+.header-level-2 {
+  display: inline-block;
+  width: 50%;
+}
+.header-level-2-value {
+  color: #fff;
+  font-size: 24rpx;
+}
+.header-label {
+  font-size: 24rpx;
+  color: #ccc;
+  margin-right: 10rpx;
+}
+.fund-list-wrapper {
+  height: calc(100% - 260rpx);
+  overflow: auto;
+}
+.fund-item {
+  height: 180rpx;
+  border-bottom: 1px solid #f7f3f3;
+  padding: 0 70rpx;
+  color: #888888;  
+}
+.fund-item-text-red {
+  font-size: 40rpx;
+  color: #EA685E;
+}
+.fund-item-text-green {
+  font-size: 40rpx;
+  color: #95C560;
+}
+.fund-item-label {
+  font-size: 24rpx;
+  color: #888888;
+}
+.fund-item-top {
+  height: 110rpx;
+  padding: 20rpx 0;
+  display: flex;
+  box-sizing: border-box;
+}
+.fund-item-top-left {
+  flex: 1;
+}
+.fund-item-top-right {
+  width: 246;
+  display: flex;
+  text-align: right;
+}
+.fund-item-share {
+  margin-left: 40rpx;
+}
+.fund-item-bottom {
+  height: 70rpx;
+  line-height: 70rpx;
+}

@@ -1,7 +1,10 @@
 {
   "pages":[
+    "pages/fundListAll/index",
     "pages/addFund/index",
+    "pages/myFundList/index",
     "pages/fundList/index",
+    "pages/removeFund/index",
     "pages/home/home",
     "pages/index/index",
     "pages/logs/logs"

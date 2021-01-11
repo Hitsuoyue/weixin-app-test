@@ -4,13 +4,15 @@
     <view class="header-search-icon">
       <icon class="icon-small" type="search" size="12"></icon>
     </view>
-    <input bindinput="onInputChange" bindconfirm="onSearch" class="header-search-input" auto-focus placeholder="将会获取焦点"/>
-
+    <input bindinput="onInputChange" bindconfirm="onSearch" class="header-search-input" auto-focus placeholder="输入基金代码进行搜索"/>
   </view>
-  <block class="fund-wrapper" wx:for="{{fundList}}"  wx:for-item="fund">
-    <view class="fund-item" wx:key="fund_id" bindtap="toAddFund">
-        {{fund.fund_id}}
-        <text class="fund-item-name">{{fund.fund_name}}</text>
-    </view>
-  </block>
+  <view class="fund-wrapper">
+    <block wx:for="{{fundList}}"  wx:for-item="fund">
+      <view class="fund-item" wx:key="fund_id" bindtap="toAddFund" data-fund_id="{{fund.fund_id}}" data-fund_name="{{fund.fund_name}}">
+          {{fund.fund_id}}
+          <text class="fund-item-name">{{fund.fund_name}}</text>
+      </view>
+    </block>
+  </view>
+  
 </view>

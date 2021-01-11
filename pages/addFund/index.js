@@ -34,7 +34,8 @@ function transFundList(data) {
   console.log('fundList---2222', wx.getStorageSync('fundList'))  
   
 }
-
+const date = new Date();
+const currentDay = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
 Page({
   data: {
     motto: 'Hello World~~~~',
@@ -44,14 +45,27 @@ Page({
     fundList: [],
     form: {
       netWorth: 0,
-      date: '2016-09-01',
+      date: currentDay,
       rate: 0.15
-    }
+    },
+    fundId: ''
   },
   formSubmit(e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
+    const fundId = this.data.fundId;
+    const myFundObj = wx.getStorageSync('myFundObj') || {};
+    const currentFunObj = myFundObj[fundId] || {};
+    const { myFundList=[], info } = currentFunObj;
+    myFundList.push({...e.detail.value, index: myFundList.length, type: 'add'}); 
+    currentFunObj.myFundList = myFundList;
+    !info ? currentFunObj.info = { fundName: this.data.fundName } : null;
+    myFundObj[fundId] = currentFunObj;
+    console.log('myFundObj', myFundObj)
+    wx.setStorageSync('myFundObj', myFundObj);
+    wx.redirectTo({
+      url: `../myFundList/index?fundId=${fundId}&fundName=${this.data.fundName}`
+    })
   },
-
   formReset(e) {
     console.log('form发生了reset事件，携带数据为：', e.detail.value)
     this.setData({
@@ -59,11 +73,12 @@ Page({
     })
   },
   bindAmountChange: function(e) {
-    console.log('picker发送选择改变，携带值为', e.detail.value)
+    console.log('input发送选择改变，携带值为', e.detail.value)
     this.data.form.amount = e.detail.value;
-    //todo
-    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
-      this.data.form.share = this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth;
+    if(!!(this.data.form.amount && this.data.form.netWorth && this.data.form.date)) {
+    console.log('this.data.form.amount && this.data.form.netWorth && this.data.form.date', !!(this.data.form.amount && this.data.form.netWorth && this.data.form.date))
+      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth).toFixed(2);
+      console.log('this.data.form.share--input', this.data.form.share)
     }
     this.setData({
       form: this.data.form
@@ -72,18 +87,38 @@ Page({
   bindDateChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.data.form.date = e.detail.value;
-    //todo
-    this.data.form.netWorth = 12;
-    this.data.form.share = 12;
-    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
-      this.data.form.share = this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth;
-    }
-    this.setData({
-      form: this.data.form
+    const self = this;
+    wx.request({
+      url: `https://api.doctorxiong.club/v1/fund/detail?code=${self.data.fundId}&startDate=${e.detail.value}&endDate=${e.detail.value}`, //仅为示例，并非真实的接口地址
+      data: {
+      },
+      header: {
+        'content-type': 'application/json', // 默认值
+      },
+      method: 'GET',
+      success (res) {
+        const data = res.data && res.data.data;
+        const { netWorthData } = data;
+        self.data.form.netWorth = netWorthData[0][1];
+        console.log('净值', netWorthData[0][1])
+        if(self.data.form.amount && self.data.form.netWorth && self.data.form.date) {
+          self.data.form.share = (self.data.form.amount * (1 - self.data.form.rate)/self.data.form.netWorth).toFixed(2);
+          console.log('this.data.form.share--date', self.data.form.share)
+        }
+        self.setData({
+          form: self.data.form
+        })
+      }
     })
-  },
-  onLoad: function () {
+ 
     
+  },
+  onLoad: function (options) {
+    console.log('options', options)
+    this.setData({
+      fundId: options.fundId || '000001',
+      fundName: options.fundName,
+    })
   },
   
 })
