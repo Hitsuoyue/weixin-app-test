@@ -31,9 +31,15 @@ Page({
     currentFunObj.myFundList = myFundList;
     myFundObj[fundId] = currentFunObj;
     wx.setStorageSync('myFundObj', myFundObj);
-    wx.redirectTo({
-      url: `../myFundList/index?fundId=${fundId}&fundName=${this.data.fundName}`
-    })
+    if( getCurrentPages()[ getCurrentPages().length - 2].route === 'pages/myFundList/index') {
+      wx.navigateBack({
+        url: `../myFundList/index?fundId=${fundId}&fundName=${this.data.fundName}`
+      })
+    } else {
+      wx.redirectTo({
+        url: `../myFundList/index?fundId=${fundId}&fundName=${this.data.fundName}`
+      })
+    }
   },
 
   formReset(e) {
@@ -61,16 +67,11 @@ Page({
     const self = this;
     wx.request({
       url: `https://api.doctorxiong.club/v1/fund/detail?code=${self.data.fundId}&startDate=${e.detail.value}&endDate=${e.detail.value}`, //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json', // 默认值
-      },
       method: 'GET',
       success (res) {
         const data = res.data && res.data.data;
         const { netWorthData } = data;
-        self.data.form.netWorth = netWorthData[0][1];
+        netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
         console.log('净值', netWorthData[0][1])
         console.log('this.data.form', self.data.form)
         if(!!(self.data.form.share && self.data.form.netWorth && self.data.form.date)) {

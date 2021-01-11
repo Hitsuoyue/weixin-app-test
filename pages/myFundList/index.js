@@ -18,17 +18,18 @@ Page({
     returnRate: 0.00
   },
   onLoad: function (options) {
-    console.log('options', options)
-    console.log('myFundList', wx.getStorageSync('myFundObj')[options.fundId])
-    const fundId = options.fundId;
+    this.data.fundId = options.fundId;
+    this.data.fundName = options.fundName;
+  },
+  onShow: function () {
+    wx.showLoading({
+      title: '加载中',
+    });
+    const fundId = this.data.fundId;
+    const fundName = this.data.fundName;
     const self = this;
     wx.request({
       url: `https://api.doctorxiong.club/v1/fund/detail?code=${fundId}`, //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json', // 默认值
-      },
       method: 'GET',
       success (res) {
         const data = res.data && res.data.data;
@@ -36,9 +37,6 @@ Page({
         const currentNetWorth = netWorthData[netWorthData.length - 1][1];
         const yestodayNetWorth = netWorthData[netWorthData.length - 2][1];
         console.log('yestodayNetWorth', yestodayNetWorth, currentNetWorth)
-
-
-        const fundName = options.fundName;
         const currentFunObj = wx.getStorageSync('myFundObj')[fundId];
         const { myFundList = [], info = {} } = currentFunObj;
         let allBuyInAmount = 0.00, currentShare = 0.00, yestodayShare = 0.00, allBuyInShare = 0.00, cost = 0.00, marketValue = 0.00,
@@ -80,7 +78,7 @@ Page({
           allIncome,
           returnRate
         })
-
+        wx.hideLoading();
       }
     })
 

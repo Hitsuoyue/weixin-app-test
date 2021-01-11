@@ -10,28 +10,28 @@
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>买入金额</text>
         </view>
-        <input class="form-option" name="amount" type="number" auto-focus bindinput="bindAmountChange"/>
+        <input class="form-option" name="amount" auto-focus bindinput="bindAmountChange"/>
       </view>
       <view class="form-item">
         <view class="form-label">
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>购买净值</text>
         </view>
-        <input class="form-option" name="netWorth" type="number" value="{{form.netWorth}}" disabled="true"/>
+        <input class="form-option" name="netWorth" value="{{form.netWorth}}"/>
       </view>
       <view class="form-item">
         <view class="form-label">
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>持仓份额</text>
         </view>
-        <input class="form-option" name="share" type="number" value="{{form.share}}" />
+        <input class="form-option" name="share" value="{{form.share}}" />
       </view>
       <view class="form-item">
         <view class="form-label">
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>申购时间</text>
         </view>
-        <picker class="form-option" name="date" mode="date" value="{{form.date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+        <picker class="form-option" name="date" mode="date" value="{{form.date}}" bindchange="bindDateChange">
           <text>{{form.date}}</text>
         </picker>  
       </view>
@@ -40,7 +40,7 @@
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>申购费率</text>
         </view>
-        <input class="form-option" name="rate" type="number" auto-focus value="{{form.rate}}" disabled="true"/>
+        <input class="form-option" name="rate" value="{{form.rate}}"/>
       </view>
       <view class="btn-area">
         <button class="submit-btn" formType="submit">提交</button>

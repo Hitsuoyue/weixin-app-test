@@ -4,32 +4,33 @@ const app = getApp()
 
 Page({
   data: {
-    list: []
+    list: [],
+    totalCost: 0.00,
+    totalMarketValue: 0.00,
+    totalCurrentIncome: 0.00,
+    totalAllIncome: 0.00,
+    totalYestodayIncome: 0.00
   },
-  onLoad: function (options) {
-    const fundId = options.fundId || '000001';
+  onShow: function (options) {
+    wx.showLoading({
+      title: '加载中',
+    });
     const self = this;
-    wx.request({
-      url: `https://api.doctorxiong.club/v1/fund/detail?code=${fundId}`, //仅为示例，并非真实的接口地址
-      data: {
-      },
-      header: {
-        'content-type': 'application/json', // 默认值
-      },
-      method: 'GET',
-      success (res) {
-        const data = res.data && res.data.data;
-        const { netWorthData } = data;
-        const currentNetWorth = netWorthData[netWorthData.length - 1][1];
-        const yestodayNetWorth = netWorthData[netWorthData.length - 2][1];
-        const currentFunObj = wx.getStorageSync('myFundObj')[options.fundId || '000001'];
-        const myFundObj = wx.getStorageSync('myFundObj') || {};
-        const list = [];
-        let totalCost = 0.00, totalMarketValue = 0.00, 
-        totalCurrentIncome = 0.00, totalAllIncome = 0.00, totalYestodayIncome = 0.00;
-        console.log('myFundObj', myFundObj)
-        console.log('totalCost-1', totalCost)
-        for(let key in myFundObj) {
+    const myFundObj = wx.getStorageSync('myFundObj') || {};
+    const list = [];
+    let totalCost = 0.00, totalMarketValue = 0.00, 
+    totalCurrentIncome = 0.00, totalAllIncome = 0.00, totalYestodayIncome = 0.00;
+    console.log('myFundObj', myFundObj)
+    for(let key in myFundObj) {
+      wx.request({
+        url: `https://api.doctorxiong.club/v1/fund/detail?code=${key}`, //仅为示例，并非真实的接口地址
+        method: 'GET',
+        success (res) {
+          const data = res.data && res.data.data;
+          const { netWorthData } = data;
+          const currentNetWorth = netWorthData[netWorthData.length - 1][1];
+          const yestodayNetWorth = netWorthData[netWorthData.length - 2][1];
+
           let currentFunObj = myFundObj[key] || {};
           const { myFundList = [], info = {  } } = currentFunObj;
           const { fundName='' } = info;
@@ -49,8 +50,9 @@ Page({
               const currentDay = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
               item.date !== currentDay ? yestodayShare = Number(yestodayShare) + Number(item.share) : null;
               //累计收益 = 卖出金额 - 卖出份额*单位净值 + 当前收益
-            allIncome = allIncome + item.income;
-          }})
+              allIncome = allIncome + item.income;
+            }
+          })
           unitNetWorth = allBuyInShare != 0 ? (Number(allBuyInAmount) / Number(allBuyInShare)).toFixed(2) : 0.00; //单位净值
           // 持仓份额 currentShare
           currentShare = Number(currentShare).toFixed(2);
@@ -72,28 +74,26 @@ Page({
           totalMarketValue = (Number(totalMarketValue) + Number(marketValue)).toFixed(2);//总市值
           totalCurrentIncome = (Number(totalCurrentIncome) + Number(currentIncome)).toFixed(2);//当前收益
           totalAllIncome = (Number(totalAllIncome) + Number(allIncome)).toFixed(2);//总盈亏
-          totalYestodayIncome = (Number(totalYestodayIncome) + Number(yestodayIncome)).toFixed(2);//昨日收益
+          totalYestodayIncome = (Number(totalYestodayIncome) + Number(yestodayIncome)).toFixed(2);//昨日收益 
+          
+          if(list.length == Object.keys(myFundObj).length) {
+            console.log('list', list)
+            self.setData({
+              list,
+              totalCost,
+              totalMarketValue,
+              totalCurrentIncome,
+              totalAllIncome,
+              totalYestodayIncome
+            })
+            wx.hideLoading()
+          }
         }
-        console.log('list', list)
-        self.setData({
-          list,
-          totalCost,
-          totalMarketValue,
-          totalCurrentIncome,
-          totalAllIncome,
-          totalYestodayIncome
-        })
-
-      }
-    })
-
-    
-    
+      })
+    }    
     // const myFundObj = wx.getStorageSync('myFundObj') || {};
     // myFundObj = {};
     // wx.setStorageSync('myFundObj', {});
-
-
   },
   bindToMyFundList: function (e) {
     console.log('add', e)

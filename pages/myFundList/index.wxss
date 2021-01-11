@@ -11,6 +11,7 @@
   top: 50rpx;
   color: #fff;
   font-size: 24rpx;
+  line-height: 42rpx;
 }
 .header-info {
   background: #d28660;
