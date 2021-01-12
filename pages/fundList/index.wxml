@@ -4,7 +4,7 @@
     <view class="header-search-icon">
       <icon class="icon-small" type="search" size="12"></icon>
     </view>
-    <input bindinput="onInputChange" bindconfirm="onSearch" class="header-search-input" auto-focus placeholder="输入基金代码进行搜索"/>
+    <input bindinput="onInputChange" bindconfirm="onSearch" class="header-search-input" placeholder="输入基金代码进行搜索"/>
   </view>
   <view class="fund-wrapper">
     <block wx:for="{{fundList}}"  wx:for-item="fund">

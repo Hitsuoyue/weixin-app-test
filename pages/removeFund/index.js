@@ -61,6 +61,17 @@ Page({
       form: this.data.form
     })
   },
+  bindNetWorthChange: function(e) {
+    this.data.form.netWorth = e.detail.value;
+    if(!!(this.data.form.share && this.data.form.netWorth && this.data.form.date)) {
+      console.log('this.data.form.amount && this.data.form.netWorth && this.data.form.date', !!(this.data.form.amount && this.data.form.netWorth && this.data.form.date))
+        this.data.form.amount = (this.data.form.netWorth * (1 - this.data.form.rate)*this.data.form.share).toFixed(2);
+        console.log('this.data.form.amount--input', this.data.form.amount)
+      }
+    this.setData({
+      form: this.data.form
+    })
+  },
   bindDateChange: function(e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     this.data.form.date = e.detail.value;
@@ -71,8 +82,7 @@ Page({
       success (res) {
         const data = res.data && res.data.data;
         const { netWorthData } = data;
-        netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
-        console.log('净值', netWorthData[0][1])
+        netWorthData && netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
         console.log('this.data.form', self.data.form)
         if(!!(self.data.form.share && self.data.form.netWorth && self.data.form.date)) {
           self.data.form.amount = (self.data.form.netWorth * (1 - self.data.form.rate)*self.data.form.share).toFixed(2);

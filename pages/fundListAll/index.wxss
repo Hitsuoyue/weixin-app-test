@@ -67,13 +67,23 @@
 .fund-item-top-left {
   flex: 1;
 }
+.fund-item-text-name {
+  width: 370rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;  
+}
 .fund-item-top-right {
   width: 246;
   display: flex;
   text-align: right;
 }
+.fund-item-netWorth {
+  width: 100rpx;
+}
 .fund-item-share {
   margin-left: 40rpx;
+  width: 100rpx;
 }
 .fund-item-bottom {
   height: 70rpx;

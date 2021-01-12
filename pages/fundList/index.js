@@ -106,6 +106,9 @@ Page({
   onLoad: function () {
     if(!wx.getStorageSync('fundList')) {
       let self = this;
+      wx.showLoading({
+        title: '加载中',
+      });
       wx.request({
         // url: 'https://mall.api.fofeasy.cn/apimall/fund_screen', //仅为示例，并非真实的接口地址
         url: 'https://api.doctorxiong.club/v1/fund/all', //仅为示例，并非真实的接口地址
@@ -118,6 +121,7 @@ Page({
         success (res) {
           //todo 只显示前100条
           const data = res.data && res.data.data.slice(0,100);
+          wx.hideLoading();
           self.setData({
             fundList: transFundList(data)
           })

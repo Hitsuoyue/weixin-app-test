@@ -103,8 +103,7 @@ Page({
       success (res) {
         const data = res.data && res.data.data;
         const { netWorthData } = data;
-        netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
-        console.log('净值', netWorthData[0][1])
+        netWorthData && netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
         if(self.data.form.amount && self.data.form.netWorth && self.data.form.date) {
           self.data.form.share = (self.data.form.amount * (1 - self.data.form.rate)/self.data.form.netWorth).toFixed(2);
           console.log('this.data.form.share--date', self.data.form.share)
@@ -116,6 +115,17 @@ Page({
     })
  
     
+  },
+  bindNetWorthChange: function(e) {
+    console.log('bindNetWorthChange')
+    this.data.form.netWorth = e.detail.value;
+    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
+      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth).toFixed(2);
+      console.log('this.data.form.share--date', this.data.form.share)
+    }
+    this.setData({
+      form: this.data.form
+    })
   },
   onLoad: function (options) {
     console.log('options', options)   

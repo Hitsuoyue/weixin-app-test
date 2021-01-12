@@ -17,7 +17,7 @@
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>购买净值</text>
         </view>
-        <input class="form-option" name="netWorth" value="{{form.netWorth}}"/>
+        <input class="form-option" name="netWorth" value="{{form.netWorth}}" bindinput="bindNetWorthChange"/>
       </view>
       <view class="form-item">
         <view class="form-label">

@@ -12,12 +12,13 @@
   background: #eff0f4;
   border: none;
   font-size: 24rpx;  
+  padding-top: 6rpx;
 }
 .header-search-icon {
   width: 18px;
 }
 .header-search-input {
-  margin-left: 30rpx;
+  margin-left: 10rpx;
   flex: 1;
 }
 .fund-wrapper {

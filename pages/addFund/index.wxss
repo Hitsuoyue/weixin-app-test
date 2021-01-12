@@ -42,7 +42,12 @@
 .submit-btn {
   width: 100%;
   border: none;
+  display: inline-block;
   height: 48rpx;
   line-height: 48rpx;
   font-size: 24rpx;
+  background: #d2866085;
+  border-radius: 8rpx;
+  border: 1px solid #d28660;
+  padding: 0 !important;
 }

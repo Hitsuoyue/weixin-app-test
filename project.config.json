@@ -4,7 +4,7 @@
     "ignore": []
   },
   "setting": {
-    "urlCheck": false,
+    "urlCheck": true,
     "es6": true,
     "enhance": false,
     "postcss": true,
@@ -21,8 +21,9 @@
     "checkSiteMap": true,
     "uploadWithSourceMap": true,
     "compileHotReLoad": false,
-    "useMultiFrameRuntime": false,
+    "useMultiFrameRuntime": true,
     "useApiHook": true,
+    "useApiHostProcess": false,
     "babelSetting": {
       "ignore": [],
       "disablePlugins": [],
@@ -40,8 +41,8 @@
   },
   "compileType": "miniprogram",
   "libVersion": "2.0.4",
-  "appid": "wxb4a85db83ac3049f",
-  "projectname": "miniprogram-1",
+  "appid": "wx4a3f3c164159ed29",
+  "projectname": "miniji",
   "debugOptions": {
     "hidedInDevtools": []
   },

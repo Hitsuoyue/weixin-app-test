@@ -4,6 +4,10 @@
   line-height: 80rpx;
   color: #fff;
   border-bottom: 1px solid #ccc;
+  width: 472rpx;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;  
 }
 .header-operate-container {
   position: absolute;

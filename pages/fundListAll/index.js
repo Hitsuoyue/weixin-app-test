@@ -12,11 +12,13 @@ Page({
     totalYestodayIncome: 0.00
   },
   onShow: function (options) {
-    wx.showLoading({
-      title: '加载中',
-    });
-    const self = this;
     const myFundObj = wx.getStorageSync('myFundObj') || {};
+    if(Object.keys(myFundObj).length > 0) {
+      wx.showLoading({
+        title: '加载中',
+      });
+    }
+    const self = this;
     const list = [];
     let totalCost = 0.00, totalMarketValue = 0.00, 
     totalCurrentIncome = 0.00, totalAllIncome = 0.00, totalYestodayIncome = 0.00;
@@ -28,9 +30,8 @@ Page({
         success (res) {
           const data = res.data && res.data.data;
           const { netWorthData } = data;
-          const currentNetWorth = netWorthData[netWorthData.length - 1][1];
-          const yestodayNetWorth = netWorthData[netWorthData.length - 2][1];
-
+          const currentNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 1][1] : 0;
+          const yestodayNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 2][1] : 0;
           let currentFunObj = myFundObj[key] || {};
           const { myFundList = [], info = {  } } = currentFunObj;
           const { fundName='' } = info;

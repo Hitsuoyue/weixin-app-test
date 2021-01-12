@@ -34,8 +34,8 @@ Page({
       success (res) {
         const data = res.data && res.data.data;
         const { netWorthData } = data;
-        const currentNetWorth = netWorthData[netWorthData.length - 1][1];
-        const yestodayNetWorth = netWorthData[netWorthData.length - 2][1];
+        const currentNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 1][1] : 0;
+        const yestodayNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 2][1] : 0;
         console.log('yestodayNetWorth', yestodayNetWorth, currentNetWorth)
         const currentFunObj = wx.getStorageSync('myFundObj')[fundId];
         const { myFundList = [], info = {} } = currentFunObj;
