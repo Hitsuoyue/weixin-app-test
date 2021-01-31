@@ -43,15 +43,15 @@
 .fund-item {
   height: 180rpx;
   border-bottom: 1px solid #f7f3f3;
-  padding: 0 70rpx;
+  padding: 0 40rpx;
   color: #888888;  
 }
 .fund-item-text-red {
-  font-size: 40rpx;
+  font-size: 30rpx;
   color: #EA685E;
 }
 .fund-item-text-green {
-  font-size: 40rpx;
+  font-size: 30rpx;
   color: #95C560;
 }
 .fund-item-label {
@@ -74,16 +74,30 @@
   overflow: hidden;  
 }
 .fund-item-top-right {
-  width: 246;
+  width: 280rpx;
   display: flex;
   text-align: right;
 }
 .fund-item-netWorth {
-  width: 100rpx;
+  width: 130rpx;
 }
 .fund-item-share {
-  margin-left: 40rpx;
-  width: 100rpx;
+  width: 130rpx;
+  margin-left: 20rpx;
+}
+.fund-item-text-netWorth {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+  margin-bottom: 12rpx;
+}
+.fund-item-text-share {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
+  white-space: nowrap;
+  margin-bottom: 12rpx;
 }
 .fund-item-bottom {
   height: 70rpx;

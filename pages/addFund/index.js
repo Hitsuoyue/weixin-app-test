@@ -56,7 +56,16 @@ Page({
     const myFundObj = wx.getStorageSync('myFundObj') || {};
     const currentFunObj = myFundObj[fundId] || {};
     const { myFundList=[], info } = currentFunObj;
-    myFundList.push({...e.detail.value, index: myFundList.length, type: 'add'}); 
+    console.log('this.index', this.data.index);
+    console.log('this.index', this.data.index != undefined, e.detail.value);
+
+
+    if(this.data.index != undefined) {
+      myFundList[this.data.index] = {...e.detail.value, index: this.data.index, type: 'add'}; 
+    } else {
+      myFundList.push({...e.detail.value, index: myFundList.length, type: 'add'}); 
+    }
+    
     currentFunObj.myFundList = myFundList;
     !info ? currentFunObj.info = { fundName: this.data.fundName } : null;
     myFundObj[fundId] = currentFunObj;
@@ -128,10 +137,14 @@ Page({
     })
   },
   onLoad: function (options) {
-    console.log('options', options)   
+    const fundData = JSON.parse(options.fundData) || {};
+    console.log('options', options, fundData)   
+
     this.setData({
       fundId: options.fundId || '000001',
       fundName: options.fundName,
+      form: fundData,
+      index: fundData.index
     })
   },
   

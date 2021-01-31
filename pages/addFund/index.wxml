@@ -10,7 +10,7 @@
           <image class="form-label-icon" src="../images/money.png"></image>
           <text>买入金额</text>
         </view>
-        <input class="form-option" name="amount" auto-focus bindinput="bindAmountChange"/>
+        <input class="form-option" name="amount" value="{{form.amount}}" auto-focus bindinput="bindAmountChange"/>
       </view>
       <view class="form-item">
         <view class="form-label">

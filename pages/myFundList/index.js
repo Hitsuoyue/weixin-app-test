@@ -63,7 +63,7 @@ Page({
           yestodayIncome = ((currentNetWorth - yestodayNetWorth) * yestodayShare).toFixed(2); //昨日收益
           currentIncome = (marketValue - cost).toFixed(2); //当前收益
           allIncome = (allIncome + Number(currentIncome)).toFixed(2); //累计收益
-          returnRate = unitNetWorth != 0 ? ((currentNetWorth - unitNetWorth)/unitNetWorth).toFixed(2) : 0.00; //收益率 = （当前净值-单位净值）/单位净值 * 100%
+          returnRate = unitNetWorth != 0 ? Number(((currentNetWorth - unitNetWorth)/unitNetWorth)*100).toFixed(2) : 0.00; //收益率 = （当前净值-单位净值）/单位净值 * 100%
         self.setData({
           fundId: fundId,
           fundName,
@@ -102,5 +102,20 @@ Page({
       url: `../removeFund/index?fundId=${this.data.fundId}&fundName=${this.data.fundName}`
     })
   },
+  toItem: function(e) {
+    console.log('e', e, e.target.dataset, e.currentTarget.dataset.item)
+    const { item={} } = e.currentTarget.dataset;
+    const { type } = item;
+    if(type === 'add') {
+      wx.navigateTo({
+        url: `../addFund/index?fundId=${this.data.fundId}&fundName=${this.data.fundName}&fundData=${JSON.stringify(item)}`
+      })
+    } else {
+      wx.navigateTo({
+        url: `../removeFund/index?fundId=${this.data.fundId}&fundName=${this.data.fundName}&fundData=${JSON.stringify(item)}`
+      })
+    }
+   
+  }
   
 })

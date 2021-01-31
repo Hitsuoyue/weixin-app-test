@@ -27,7 +27,14 @@ Page({
       unitNetWorth = allBuyInAmount / allBuyInShare; //单位净值
     })
     const income = e.detail.value.amount - e.detail.value.share * unitNetWorth;
-    myFundList.push({...e.detail.value, index: myFundList.length, type: 'remove', income: income}); 
+
+    if(this.data.index != undefined) {
+      myFundList[this.data.index] = {...e.detail.value, index: this.data.index, type: 'remove', income: income}; 
+    } else {
+      myFundList.push({...e.detail.value, index: myFundList.length, type: 'remove', income: income}); 
+    }
+
+    
     currentFunObj.myFundList = myFundList;
     myFundObj[fundId] = currentFunObj;
     wx.setStorageSync('myFundObj', myFundObj);
@@ -94,16 +101,14 @@ Page({
 
       }
     });
-    console.log('11111', this.data.form)
-
-      
   },
   onLoad: function (options) {
-    console.log('options', options)
+    const fundData = JSON.parse(options.fundData) || {};
     this.setData({
-      fundId: options.fundId,
+      fundId: options.fundId || '000001',
       fundName: options.fundName,
+      form: fundData,
+      index: fundData.index
     })
   },
-  
 })

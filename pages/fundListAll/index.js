@@ -68,7 +68,7 @@ Page({
             fundName,
             share: currentShare,
             yestodayIncome,
-            returnRate
+            returnRate: Number(returnRate*100).toFixed(2)
           });
           console.log('totalCost', totalCost, Number(cost))
           totalCost = (Number(totalCost) + Number(cost)).toFixed(2);//总本金

@@ -40,13 +40,13 @@
     </view>
     <view class="header-level-2">
       <text class="header-label">收益率</text>
-      <text class="header-level-2-value">{{returnRate}}</text>  
+      <text class="header-level-2-value">{{returnRate}}%</text>  
     </view>
   </view>
 
   <view class="investment-list">
 <view class="investment-item" wx:for="{{myFundList}}"  wx:for-item="investement">
-  <view wx:if="{{investement.type === 'add'}}">
+  <view wx:if="{{investement.type === 'add'}}" bindtap="toItem" data-item="{{investement}}">
     <view class="investment-item-top">
       <view class="investment-item-top-left">
         <view class="investment-item-text-red">{{investement.amount}}</view>
@@ -67,7 +67,7 @@
       <view class="investment-item-label">{{investement.date}}</view>
     </view>
   </view> 
-  <view wx:else>
+  <view wx:else bindtap="toItem" data-item="{{investement}}">
     <view class="investment-item-top">
       <view class="investment-item-top-left">
         <view class="investment-item-text-green">{{investement.amount}}</view>

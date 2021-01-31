@@ -64,7 +64,7 @@
 }
 .investment-item-top {
   height: 110rpx;
-  padding: 20rpx 0;
+  padding: 20rpx 0 0 0;
   display: flex;
   box-sizing: border-box;
 }
@@ -72,12 +72,28 @@
   flex: 1;
 }
 .investment-item-top-right {
-  width: 300rpx;
   display: flex;
   text-align: right;
 }
+.investment-item-netWorth {
+  width: 90px;
+}
+.investment-item-text-netWorth {
+  overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+}
+.investment-item-text-share {
+  overflow: hidden;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    white-space: nowrap;
+
+}
 .investment-item-share {
-  margin-left: 40rpx;
+  width: 90px;
+  margin-left: 30rpx;
 }
 .investment-item-bottom {
   height: 70rpx;
