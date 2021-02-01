@@ -103,12 +103,19 @@ Page({
     });
   },
   onLoad: function (options) {
-    const fundData = JSON.parse(options.fundData) || {};
-    this.setData({
-      fundId: options.fundId || '000001',
-      fundName: options.fundName,
-      form: fundData,
-      index: fundData.index
-    })
+    const fundData = options.fundData ? JSON.parse(options.fundData) : undefined;
+    if(fundData !== undefined) {
+      this.setData({
+        fundId: options.fundId || '000001',
+        fundName: options.fundName,
+        form: fundData,
+        index: fundData.index || ''
+      })
+    } else {
+      this.setData({
+        fundId: options.fundId || '000001',
+        fundName: options.fundName,
+      })
+    }
   },
 })

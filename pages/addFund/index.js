@@ -56,7 +56,7 @@ Page({
     const myFundObj = wx.getStorageSync('myFundObj') || {};
     const currentFunObj = myFundObj[fundId] || {};
     const { myFundList=[], info } = currentFunObj;
-    console.log('this.index', this.data.index);
+    console.log('Object.keys(currentFunObj).length', myFundObj, Object.keys(myFundObj).length);
     console.log('this.index', this.data.index != undefined, e.detail.value);
 
 
@@ -67,6 +67,7 @@ Page({
     }
     
     currentFunObj.myFundList = myFundList;
+    currentFunObj.index !== undefined ? null : currentFunObj.index = Object.keys(myFundObj).length;
     !info ? currentFunObj.info = { fundName: this.data.fundName } : null;
     myFundObj[fundId] = currentFunObj;
     console.log('myFundObj', myFundObj)
@@ -137,15 +138,20 @@ Page({
     })
   },
   onLoad: function (options) {
-    const fundData = JSON.parse(options.fundData) || {};
-    console.log('options', options, fundData)   
-
-    this.setData({
-      fundId: options.fundId || '000001',
-      fundName: options.fundName,
-      form: fundData,
-      index: fundData.index
-    })
+    const fundData = options.fundData ? JSON.parse(options.fundData) : undefined;
+    if(fundData !== undefined) {
+      this.setData({
+        fundId: options.fundId || '000001',
+        fundName: options.fundName,
+        form: fundData,
+        index: fundData.index || ''
+      })
+    } else {
+      this.setData({
+        fundId: options.fundId || '000001',
+        fundName: options.fundName,
+      })
+    }
   },
   
 })

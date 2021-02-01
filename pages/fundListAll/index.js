@@ -19,13 +19,14 @@ Page({
       });
     }
     const self = this;
-    const list = [];
+    console.log('Object.keys(myFundObj)', Object.keys(myFundObj))
+    const list = new Array(Object.keys(myFundObj).length);
     let totalCost = 0.00, totalMarketValue = 0.00, 
     totalCurrentIncome = 0.00, totalAllIncome = 0.00, totalYestodayIncome = 0.00;
     console.log('myFundObj', myFundObj)
     for(let key in myFundObj) {
       wx.request({
-        url: `https://api.doctorxiong.club/v1/fund/detail?code=${key}`, //仅为示例，并非真实的接口地址
+        url: `https://api.doctorxiong.club/v1/fund/detail?code=${key}`, 
         method: 'GET',
         success (res) {
           const data = res.data && res.data.data;
@@ -33,7 +34,7 @@ Page({
           const currentNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 1][1] : 0;
           const yestodayNetWorth = netWorthData != undefined ? netWorthData[netWorthData.length - 2][1] : 0;
           let currentFunObj = myFundObj[key] || {};
-          const { myFundList = [], info = {  } } = currentFunObj;
+          const { myFundList = [], info = {  }, index } = currentFunObj;
           const { fundName='' } = info;
           let allBuyInAmount = 0.00, currentShare = 0.00, yestodayShare = 0.00, allBuyInShare = 0.00, cost = 0.00, marketValue = 0.00,
           currentIncome = 0.00, yestodayIncome = 0.00, allIncome = 0.00, returnRate = 0.00, unitNetWorth = 0.00;
@@ -63,14 +64,14 @@ Page({
           currentIncome = (Number(marketValue) - Number(cost)).toFixed(2); //当前收益
           allIncome = (Number(allIncome) + Number(currentIncome)).toFixed(2); //累计收益
           returnRate = unitNetWorth != 0 ? ((Number(currentNetWorth) - Number(unitNetWorth))/Number(unitNetWorth)).toFixed(2) : 0.00; //收益率 = （当前净值-单位净值）/单位净值 * 100%
-          list.push({
+          list[index] = {
             fundId: key,
             fundName,
             share: currentShare,
             yestodayIncome,
             returnRate: Number(returnRate*100).toFixed(2)
-          });
-          console.log('totalCost', totalCost, Number(cost))
+          };
+          console.log('list', list, index)
           totalCost = (Number(totalCost) + Number(cost)).toFixed(2);//总本金
           totalMarketValue = (Number(totalMarketValue) + Number(marketValue)).toFixed(2);//总市值
           totalCurrentIncome = (Number(totalCurrentIncome) + Number(currentIncome)).toFixed(2);//当前收益
