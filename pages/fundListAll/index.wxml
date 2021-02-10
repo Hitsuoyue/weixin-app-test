@@ -34,12 +34,12 @@
           </view>
           <view class="fund-item-top-right">
             <view class="fund-item-netWorth">
-              <view wx:if="{{fund.yestodayIncome < 0}}" class="fund-item-text-red fund-item-text-netWorth">{{fund.yestodayIncome}}</view>
+              <view wx:if="{{fund.yestodayIncome > 0}}" class="fund-item-text-red fund-item-text-netWorth">{{fund.yestodayIncome}}</view>
               <view wx:else class="fund-item-text-green fund-item-text-netWorth">{{fund.yestodayIncome}}</view>
               <view class="fund-item-label">昨日收益</view>
             </view>
             <view class="fund-item-share">
-              <view wx:if="{{fund.returnRate < 0}}" class="fund-item-text-red fund-item-text-share">{{fund.returnRate}}%</view>
+              <view wx:if="{{fund.returnRate > 0}}" class="fund-item-text-red fund-item-text-share">{{fund.returnRate}}%</view>
               <view wx:else class="fund-item-text-green fund-item-text-share">{{fund.returnRate}}%</view>
               <view class="fund-item-label">收益率</view>
             </view>

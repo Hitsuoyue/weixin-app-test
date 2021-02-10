@@ -31,9 +31,9 @@
       <view class="form-item">
         <view class="form-label">
           <image class="form-label-icon" src="../images/money.png"></image>
-          <text>赎回费率</text>
+          <text>赎回费率(%)</text>
         </view>
-        <input class="form-option" name="rate" value="{{form.rate}}"/>
+        <input class="form-option" name="rate" value="{{form.rate}}" bindinput="bindRateChange"/>
       </view>
       <view class="form-item">
         <view class="form-label">
@@ -44,6 +44,7 @@
       </view>
       <view class="btn-area">
         <button class="submit-btn" formType="submit">提交</button>
+        <button  wx:if="{{form.index !== undefined}}" class="delete-btn" bindtap="bindDeleteItem">删除</button>
       </view>
     </form>
   </view>

@@ -50,6 +50,23 @@ Page({
     },
     fundId: ''
   },
+  bindDeleteItem() {
+    const fundId = this.data.fundId;
+    const myFundObj = wx.getStorageSync('myFundObj') || {};
+    const currentFunObj = myFundObj[fundId] || {};
+    const { myFundList=[], info } = currentFunObj;
+    myFundList.splice(this.data.index, 1);
+    myFundList.map((item, index) => {
+      item.index = index;
+    });
+    currentFunObj.myFundList = myFundList;
+    myFundObj[fundId] = currentFunObj;
+    console.log('myFundObj', myFundObj)
+    wx.setStorageSync('myFundObj', myFundObj);
+    wx.navigateBack({
+      url: `../myFundList/index?fundId=${fundId}&fundName=${this.data.fundName}`
+    })
+  },
   formSubmit(e) {
     console.log('form发生了submit事件，携带数据为：', e.detail.value)
     const fundId = this.data.fundId;
@@ -57,7 +74,7 @@ Page({
     const currentFunObj = myFundObj[fundId] || {};
     const { myFundList=[], info } = currentFunObj;
     console.log('Object.keys(currentFunObj).length', myFundObj, Object.keys(myFundObj).length);
-    console.log('this.index', this.data.index != undefined, e.detail.value);
+    console.log('this.index', this.data.index, this.data.index != undefined, e.detail.value);
 
 
     if(this.data.index != undefined) {
@@ -96,8 +113,19 @@ Page({
     this.data.form.amount = e.detail.value;
     if(!!(this.data.form.amount && this.data.form.netWorth && this.data.form.date)) {
     console.log('this.data.form.amount && this.data.form.netWorth && this.data.form.date', !!(this.data.form.amount && this.data.form.netWorth && this.data.form.date))
-      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth).toFixed(2);
+      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate/100)/this.data.form.netWorth).toFixed(2);
       console.log('this.data.form.share--input', this.data.form.share)
+    }
+    this.setData({
+      form: this.data.form
+    })
+  },
+  bindRateChange: function(e) {
+    console.log('rate 发送选择改变，携带值为', e.detail.value)
+    this.data.form.rate = e.detail.value;
+    if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
+      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate/100)/this.data.form.netWorth).toFixed(2);
+      console.log('this.data.form.share--date', this.data.form.share)
     }
     this.setData({
       form: this.data.form
@@ -115,7 +143,7 @@ Page({
         const { netWorthData } = data;
         netWorthData && netWorthData[0] && netWorthData[0][1] ? self.data.form.netWorth = netWorthData[0][1] : null;
         if(self.data.form.amount && self.data.form.netWorth && self.data.form.date) {
-          self.data.form.share = (self.data.form.amount * (1 - self.data.form.rate)/self.data.form.netWorth).toFixed(2);
+          self.data.form.share = (self.data.form.amount * (1 - self.data.form.rate/100)/self.data.form.netWorth).toFixed(2);
           console.log('this.data.form.share--date', self.data.form.share)
         }
         self.setData({
@@ -123,14 +151,12 @@ Page({
         })
       }
     })
- 
-    
   },
   bindNetWorthChange: function(e) {
     console.log('bindNetWorthChange')
     this.data.form.netWorth = e.detail.value;
     if(this.data.form.amount && this.data.form.netWorth && this.data.form.date) {
-      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate)/this.data.form.netWorth).toFixed(2);
+      this.data.form.share = (this.data.form.amount * (1 - this.data.form.rate/100)/this.data.form.netWorth).toFixed(2);
       console.log('this.data.form.share--date', this.data.form.share)
     }
     this.setData({
@@ -144,7 +170,7 @@ Page({
         fundId: options.fundId || '000001',
         fundName: options.fundName,
         form: fundData,
-        index: fundData.index || ''
+        index: fundData.index !== undefined ? fundData.index : ''
       })
     } else {
       this.setData({

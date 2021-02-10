@@ -15,8 +15,12 @@
       <view class="header-label">昨日收益</view>
     </view>
     <view class="header-level-2">
-      <text class="header-label">单位净值</text>
+      <text class="header-label">平均单位净值</text>
       <text class="header-level-2-value">{{unitNetWorth}}</text>  
+    </view>
+    <view class="header-level-2">
+      <text class="header-label">当前单位净值</text>
+      <text class="header-level-2-value">{{currentNetWorth}}</text>  
     </view>
     <view class="header-level-2">
       <text class="header-label">持仓份额</text>

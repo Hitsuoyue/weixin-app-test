@@ -40,36 +40,53 @@ Page({
           currentIncome = 0.00, yestodayIncome = 0.00, allIncome = 0.00, returnRate = 0.00, unitNetWorth = 0.00;
           myFundList.map(item => {
             if(item.type === 'add') {
-              allBuyInAmount = Number(allBuyInAmount) + Number(item.amount);
-              allBuyInShare = Number(allBuyInShare) + Number(item.share);
-              currentShare = Number(currentShare) + Number(item.share);
+              //持仓份额
+              currentShare = Number((Number(currentShare) + Number(item.share)).toFixed(2));
+              //投资成本
+              cost = Number(cost) + Number(item.amount);
+              //平均单位净值
+              unitNetWorth = cost / currentShare;
+              //总市值
+              marketValue = currentShare * currentNetWorth;
+              //当前收益
+              currentIncome = marketValue - cost;
+              //累计收益
+              allIncome = allIncome;
+              //昨日持仓份额
               let date = new Date();
               const currentDay = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
               item.date !== currentDay ? yestodayShare = Number(yestodayShare) + Number(item.share) : null;
             } else {
+              //持仓份额
               currentShare = Number(currentShare) - Number(item.share);
+              //投资成本
+              cost = Number(cost) - Number(item.share)*Number(unitNetWorth);
+              //总市值
+              marketValue = currentShare * currentNetWorth;
+              //当前收益
+              currentIncome = marketValue - cost;
+              //累计收益
+              allIncome = allIncome + ((Number(item.amount) - Number(item.share) * unitNetWorth));
+              //昨日持仓份额
               let date = new Date();
               const currentDay = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
-              item.date !== currentDay ? yestodayShare = Number(yestodayShare) + Number(item.share) : null;
-              //累计收益 = 卖出金额 - 卖出份额*单位净值 + 当前收益
-              allIncome = allIncome + item.income;
+              item.date !== currentDay ? yestodayShare = Number(yestodayShare) - Number(item.share) : null;
             }
           })
-          unitNetWorth = allBuyInShare != 0 ? (Number(allBuyInAmount) / Number(allBuyInShare)).toFixed(2) : 0.00; //单位净值
-          // 持仓份额 currentShare
-          currentShare = Number(currentShare).toFixed(2);
-          cost = (Number(currentShare) * Number(unitNetWorth)).toFixed(2); //投资成本
-          marketValue = (Number(currentShare) * Number(currentNetWorth)).toFixed(2); //当前市值
-          yestodayIncome = ((Number(currentNetWorth) - Number(yestodayNetWorth)) * Number(yestodayShare)).toFixed(2); //昨日收益
-          currentIncome = (Number(marketValue) - Number(cost)).toFixed(2); //当前收益
-          allIncome = (Number(allIncome) + Number(currentIncome)).toFixed(2); //累计收益
-          returnRate = unitNetWorth != 0 ? ((Number(currentNetWorth) - Number(unitNetWorth))/Number(unitNetWorth)).toFixed(2) : 0.00; //收益率 = （当前净值-单位净值）/单位净值 * 100%
+           //收益率 = （当前净值-单位净值）/单位净值 * 100%
+           returnRate = unitNetWorth != 0 ? Number(((currentNetWorth - unitNetWorth)/unitNetWorth)*100).toFixed(2) : 0.00; 
+           //累计收益
+           allIncome = (Number(allIncome) + Number(currentIncome)).toFixed(2); //累计收益
+           //昨日收益
+           yestodayIncome = ((currentNetWorth - yestodayNetWorth) * yestodayShare).toFixed(2); //昨日收益
+
+          console.log('returnRate---', returnRate)
           list[index] = {
             fundId: key,
             fundName,
             share: currentShare,
             yestodayIncome,
-            returnRate: Number(returnRate*100).toFixed(2)
+            returnRate: returnRate
           };
           console.log('list', list, index)
           totalCost = (Number(totalCost) + Number(cost)).toFixed(2);//总本金
